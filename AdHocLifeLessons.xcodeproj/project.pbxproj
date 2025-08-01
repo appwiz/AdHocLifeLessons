@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		BF1925682E3C8AD50081EEAF /* Specification.md in Resources */ = {isa = PBXBuildFile; fileRef = BF1925672E3C8ACE0081EEAF /* Specification.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		BF19254B2E3C88CC0081EEAF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		BF19253A2E3C88CB0081EEAF /* AdHocLifeLessons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdHocLifeLessons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF19254A2E3C88CC0081EEAF /* AdHocLifeLessonsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdHocLifeLessonsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF1925542E3C88CC0081EEAF /* AdHocLifeLessonsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdHocLifeLessonsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF1925672E3C8ACE0081EEAF /* Specification.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Specification.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		BF1925312E3C88CB0081EEAF = {
 			isa = PBXGroup;
 			children = (
+				BF1925672E3C8ACE0081EEAF /* Specification.md */,
 				BF19253C2E3C88CB0081EEAF /* AdHocLifeLessons */,
 				BF19254D2E3C88CC0081EEAF /* AdHocLifeLessonsTests */,
 				BF1925572E3C88CC0081EEAF /* AdHocLifeLessonsUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF1925682E3C8AD50081EEAF /* Specification.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

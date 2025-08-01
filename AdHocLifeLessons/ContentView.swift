@@ -10,51 +10,70 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
+    @State private var lifeLessonService = LifeLessonService()
+    
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                // Main lesson content area
+                ScrollView {
+                    VStack {
+                        Spacer()
+                        
+                        Text(lifeLessonService.currentLesson)
+                            .font(.system(size: 48, weight: .medium, design: .default))
+                            .foregroundColor(.primary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+                            .frame(maxWidth: .infinity)
+                        
+                        Spacer()
                     }
+                    .frame(minHeight: geometry.size.height - 80) // Account for footer height
                 }
-                .onDelete(perform: deleteItems)
-            }
-#if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                
+                // Footer
+                VStack(spacing: 8) {
+                    Divider()
+                    
+                    HStack {
+                        Text(lifeLessonService.getTimeSinceLastUpdate())
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            Task {
+                                await lifeLessonService.fetchLesson()
+                            }
+                        }) {
+                            HStack(spacing: 4) {
+                                if lifeLessonService.isLoading {
+                                    ProgressView()
+                                        .scaleEffect(0.8)
+                                } else {
+                                    Image(systemName: "arrow.clockwise")
+                                }
+                                Text("Refresh")
+                            }
+                            .font(.caption)
+                        }
+                        .disabled(lifeLessonService.isLoading)
                     }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
                 }
+                .background(Material.bar)
             }
-        } detail: {
-            Text("Select an item")
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+        .onAppear {
+            lifeLessonService.setModelContext(modelContext)
+            lifeLessonService.loadStoredLesson()
+            
+            // Fetch fresh lesson on app launch
+            Task {
+                await lifeLessonService.fetchLesson()
             }
         }
     }
@@ -62,5 +81,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: LifeLesson.self, inMemory: true)
 }
