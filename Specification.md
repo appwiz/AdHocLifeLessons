@@ -30,3 +30,6 @@ The JSON document has the following structure:
 The app view also contains a footer.
 - Display a tiny footer at the bottom of the view that shows the last update time of the lesson in a human-readable format (e.g., "Last updated: 2 minutes ago"). The footer is always visible.
 - The app should also have a button that allows the user to refresh the lesson by fetching it again from the API. Add this button to the footer.
+
+### Automatic Updates
+- The app should automatically fetch the latest lesson every 1 hour in the background. If there is a new message, the app should update the displayed lesson and the footer timestamp accordingly.

@@ -71,10 +71,17 @@ struct ContentView: View {
             lifeLessonService.setModelContext(modelContext)
             lifeLessonService.loadStoredLesson()
             
+            // Start automatic background fetching every hour
+            lifeLessonService.startBackgroundFetching()
+            
             // Fetch fresh lesson on app launch
             Task {
                 await lifeLessonService.fetchLesson()
             }
+        }
+        .onDisappear {
+            // Stop background fetching when view disappears
+            lifeLessonService.stopBackgroundFetching()
         }
     }
 }
