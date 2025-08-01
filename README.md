@@ -99,7 +99,7 @@ sequenceDiagram
 flowchart TD
     A[App Launch] --> B{Has Stored Lesson?}
     B -->|Yes| C[Display Latest Stored Lesson]
-    B -->|No| D[Display Default: "Love Each Other"]
+    B -->|No| D[Display Default message: Love Each Other]
     
     C --> E[Attempt API Fetch]
     D --> E
